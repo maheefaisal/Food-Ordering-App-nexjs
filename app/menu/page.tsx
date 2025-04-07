@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Search, Filter } from 'lucide-react';
+import { useCart } from '../context/CartContext';
 
 // Sample data - replace with your actual data source
 const menuCategories = [
@@ -46,6 +47,7 @@ const dietaryOptions = [
 ];
 
 export default function MenuPage() {
+  const { addItem } = useCart();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedDietary, setSelectedDietary] = useState<string[]>([]);
@@ -134,7 +136,10 @@ export default function MenuPage() {
               <p className="text-gray-600 mb-4">{dish.description}</p>
               <div className="flex justify-between items-center">
                 <span className="text-red-600 font-bold">${dish.price.toFixed(2)}</span>
-                <button className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full transition duration-300">
+                <button
+                  onClick={() => addItem({ id: dish.id, name: dish.name, price: dish.price })}
+                  className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full transition duration-300"
+                >
                   Add to Cart
                 </button>
               </div>
