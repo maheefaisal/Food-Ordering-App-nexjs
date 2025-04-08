@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { User, Mail, Phone, MapPin, Edit2, Save, X } from 'lucide-react';
+import { User, Mail, Phone, MapPin, Edit2, Save, X, Package } from 'lucide-react';
+import Link from 'next/link';
 
 interface UserProfile {
   name: string;
@@ -45,32 +46,41 @@ export default function ProfilePage() {
       <div className="max-w-2xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold">My Profile</h1>
-          {!isEditing ? (
-            <button
-              onClick={() => setIsEditing(true)}
-              className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full transition duration-300"
+          <div className="flex gap-4">
+            <Link
+              href="/orders"
+              className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-2 px-4 rounded-full transition duration-300"
             >
-              <Edit2 size={16} />
-              Edit Profile
-            </button>
-          ) : (
-            <div className="flex gap-2">
+              <Package size={16} />
+              View Orders
+            </Link>
+            {!isEditing ? (
               <button
-                onClick={handleSave}
-                className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full transition duration-300"
+                onClick={() => setIsEditing(true)}
+                className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full transition duration-300"
               >
-                <Save size={16} />
-                Save Changes
+                <Edit2 size={16} />
+                Edit Profile
               </button>
-              <button
-                onClick={handleCancel}
-                className="flex items-center gap-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-full transition duration-300"
-              >
-                <X size={16} />
-                Cancel
-              </button>
-            </div>
-          )}
+            ) : (
+              <div className="flex gap-2">
+                <button
+                  onClick={handleSave}
+                  className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full transition duration-300"
+                >
+                  <Save size={16} />
+                  Save Changes
+                </button>
+                <button
+                  onClick={handleCancel}
+                  className="flex items-center gap-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-full transition duration-300"
+                >
+                  <X size={16} />
+                  Cancel
+                </button>
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="bg-white rounded-lg shadow-lg p-6">

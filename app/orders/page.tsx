@@ -1,7 +1,10 @@
 'use client';
 
+import { useState } from 'react';
 import { useOrder } from '../context/OrderContext';
-import { Clock, CheckCircle, Truck, Package } from 'lucide-react';
+import { useCart } from '../context/CartContext';
+import { Clock, CheckCircle, Truck, Package, RefreshCw } from 'lucide-react';
+import Link from 'next/link';
 
 const statusIcons = {
   pending: Clock,
@@ -19,6 +22,22 @@ const statusColors = {
 
 export default function OrdersPage() {
   const { orders } = useOrder();
+  const { addToCart } = useCart();
+  const [reordering, setReordering] = useState<string | null>(null);
+
+  const handleReorder = async (orderId: string) => {
+    setReordering(orderId);
+    const order = orders.find(o => o.id === orderId);
+    if (order) {
+      // Add each item from the order to the cart
+      for (const item of order.items) {
+        await addToCart(item);
+      }
+      // Simulate loading state
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    }
+    setReordering(null);
+  };
 
   if (orders.length === 0) {
     return (
@@ -26,12 +45,12 @@ export default function OrdersPage() {
         <div className="text-center">
           <h1 className="text-3xl font-bold mb-4">No Orders Yet</h1>
           <p className="text-gray-600 mb-8">You haven't placed any orders yet.</p>
-          <a
+          <Link
             href="/menu"
             className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full transition duration-300"
           >
             Browse Menu
-          </a>
+          </Link>
         </div>
       </div>
     );
@@ -39,7 +58,7 @@ export default function OrdersPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Your Orders</h1>
+      <h1 className="text-3xl font-bold mb-8">Order History</h1>
       
       <div className="space-y-6">
         {orders.map((order) => {
@@ -80,7 +99,7 @@ export default function OrdersPage() {
                 </div>
 
                 <div className="border-t pt-4 mt-4">
-                  <div className="flex justify-between font-bold">
+                  <div className="flex justify-between font-bold text-lg">
                     <span>Total</span>
                     <span>${order.total.toFixed(2)}</span>
                   </div>
@@ -108,6 +127,23 @@ export default function OrdersPage() {
                       <span className="text-gray-600">Postal Code:</span> {order.deliveryInfo.postalCode}
                     </p>
                   </div>
+                </div>
+
+                <div className="border-t pt-4 mt-4">
+                  <button
+                    onClick={() => handleReorder(order.id)}
+                    disabled={reordering === order.id}
+                    className="flex items-center justify-center w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full transition duration-300 disabled:opacity-50"
+                  >
+                    {reordering === order.id ? (
+                      <>
+                        <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                        Adding to Cart...
+                      </>
+                    ) : (
+                      'Reorder'
+                    )}
+                  </button>
                 </div>
               </div>
             </div>
