@@ -4,6 +4,7 @@ import './globals.css'
 import Navbar from './components/Navbar'
 import { CartProvider } from './context/CartContext'
 import { OrderProvider } from './context/OrderContext'
+import { AddressProvider } from './context/AddressContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,12 +22,14 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <OrderProvider>
-          <CartProvider>
-            <Navbar />
-            <main className="min-h-screen bg-gray-50 pt-16">
-              {children}
-            </main>
-          </CartProvider>
+          <AddressProvider>
+            <CartProvider>
+              <Navbar />
+              <main className="min-h-screen bg-gray-50 pt-16">
+                {children}
+              </main>
+            </CartProvider>
+          </AddressProvider>
         </OrderProvider>
       </body>
     </html>
