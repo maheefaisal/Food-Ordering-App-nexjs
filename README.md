@@ -4,6 +4,7 @@ A modern, responsive food ordering application built with Next.js, TypeScript, a
 
 ## ✨ Features
 
+### User Features
 - **Restaurant Browsing**
   - View restaurant details and menus
   - Search and filter restaurants
@@ -36,6 +37,35 @@ A modern, responsive food ordering application built with Next.js, TypeScript, a
   - Personal information management
   - Address management
   - Order history access
+
+### Admin Features
+- **Admin Dashboard**
+  - Secure authentication system
+  - Dashboard overview
+  - Quick access to all admin sections
+
+- **Restaurant Management**
+  - Add, edit, and delete restaurants
+  - Manage restaurant details
+  - Upload restaurant images
+  - Set delivery times and categories
+
+- **Menu Management**
+  - Add, edit, and delete menu items
+  - Set item prices and availability
+  - Organize items by categories
+  - Upload item images
+
+- **Order Management**
+  - View all customer orders
+  - Update order status
+  - Track order history
+  - Manage order details
+
+- **User Management**
+  - View user accounts
+  - Manage user permissions
+  - Track user activity
 
 ## 🛠️ Tech Stack
 
@@ -87,23 +117,33 @@ yarn dev
 
 5. Open [http://localhost:3000](http://localhost:3000) in your browser
 
+### Admin Access
+1. Navigate to `/admin/login`
+2. Use the following credentials:
+   - Username: `admin`
+   - Password: `admin123`
+
 ## 📁 Project Structure
 
 ```
 food-ordering-app/
 ├── app/
-│   ├── addresses/         # Address management page
-│   ├── cart/             # Shopping cart page
-│   ├── checkout/         # Checkout process
-│   ├── components/       # Reusable components
-│   ├── context/          # React Context providers
-│   ├── menu/             # Restaurant menu page
-│   ├── order-success/    # Order confirmation page
-│   ├── orders/           # Order history page
-│   ├── profile/          # User profile page
-│   └── restaurants/      # Restaurant listing page
-├── public/               # Static assets
-└── styles/               # Global styles
+│   ├── admin/              # Admin dashboard
+│   │   ├── restaurants/    # Restaurant management
+│   │   ├── orders/         # Order management
+│   │   └── login/          # Admin login
+│   ├── addresses/          # Address management page
+│   ├── cart/              # Shopping cart page
+│   ├── checkout/          # Checkout process
+│   ├── components/        # Reusable components
+│   ├── context/           # React Context providers
+│   ├── menu/              # Restaurant menu page
+│   ├── order-success/     # Order confirmation page
+│   ├── orders/            # Order history page
+│   ├── profile/           # User profile page
+│   └── restaurants/       # Restaurant listing page
+├── public/                # Static assets
+└── styles/                # Global styles
 ```
 
 ## 🔧 Key Components
@@ -112,6 +152,7 @@ food-ordering-app/
   - `CartContext`: Manages shopping cart state
   - `OrderContext`: Handles order tracking
   - `AddressContext`: Manages delivery addresses
+  - `AuthContext`: Handles admin authentication
 
 - **Pages**
   - Restaurant listing and details
@@ -122,6 +163,10 @@ food-ordering-app/
   - Order history
   - User profile
   - Address management
+  - Admin dashboard
+  - Restaurant management
+  - Menu management
+  - Order management
 
 ## 🎨 Design System
 

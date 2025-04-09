@@ -5,6 +5,7 @@ import Navbar from './components/Navbar'
 import { CartProvider } from './context/CartContext'
 import { OrderProvider } from './context/OrderContext'
 import { AddressProvider } from './context/AddressContext'
+import { AuthProvider } from './context/AuthContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,16 +22,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <OrderProvider>
-          <AddressProvider>
-            <CartProvider>
-              <Navbar />
-              <main className="min-h-screen bg-gray-50 pt-16">
-                {children}
-              </main>
-            </CartProvider>
-          </AddressProvider>
-        </OrderProvider>
+        <AuthProvider>
+          <OrderProvider>
+            <AddressProvider>
+              <CartProvider>
+                <Navbar />
+                <main className="min-h-screen bg-gray-50 pt-16">
+                  {children}
+                </main>
+              </CartProvider>
+            </AddressProvider>
+          </OrderProvider>
+        </AuthProvider>
       </body>
     </html>
   )
