@@ -41,29 +41,42 @@ A modern, responsive food ordering application built with Next.js, TypeScript, a
 ### Admin Features
 - **Admin Dashboard**
   - Secure authentication system
-  - Dashboard overview
-  - Quick access to all admin sections
+  - Intuitive navigation interface
+  - Quick access to all management features
+  - Responsive design for all screen sizes
+
+- **Analytics & Reports**
+  - Sales data visualization
+    - Daily/weekly/monthly sales trends
+    - Total revenue tracking
+    - Sales growth metrics
+  - Popular dishes analysis
+    - Top-selling items
+    - Revenue per dish
+    - Order frequency
+  - Customer feedback management
+    - Rating system
+    - Customer comments
+    - Feedback trends
+  - Performance metrics
+    - Total orders
+    - Average ratings
+    - Customer satisfaction
 
 - **Restaurant Management**
   - Add, edit, and delete restaurants
-  - Manage restaurant details
-  - Upload restaurant images
-  - Set delivery times and categories
-
-- **Menu Management**
-  - Add, edit, and delete menu items
-  - Set item prices and availability
-  - Organize items by categories
-  - Upload item images
+  - Menu management for each restaurant
+  - Category organization
+  - Price and availability control
 
 - **Order Management**
-  - View all customer orders
+  - View all orders
   - Update order status
-  - Track order history
-  - Manage order details
+  - Search and filter orders
+  - Detailed order information
 
 - **User Management**
-  - View user accounts
+  - View user profiles
   - Manage user permissions
   - Track user activity
 
@@ -71,14 +84,18 @@ A modern, responsive food ordering application built with Next.js, TypeScript, a
 
 - **Frontend**
   - Next.js 14
+  - React
   - TypeScript
   - Tailwind CSS
-  - React Context API
   - Lucide Icons
 
-- **Backend**
-  - Next.js API Routes
-  - Stripe Payment Processing
+- **State Management**
+  - React Context API
+  - Custom hooks
+
+- **Authentication**
+  - Custom auth system
+  - Protected routes
 
 ## 🚀 Getting Started
 
@@ -129,8 +146,10 @@ yarn dev
 food-ordering-app/
 ├── app/
 │   ├── admin/              # Admin dashboard
+│   │   ├── analytics/      # Analytics and reports
 │   │   ├── restaurants/    # Restaurant management
 │   │   ├── orders/         # Order management
+│   │   ├── users/          # User management
 │   │   └── login/          # Admin login
 │   ├── addresses/          # Address management page
 │   ├── cart/              # Shopping cart page
@@ -167,24 +186,20 @@ food-ordering-app/
   - Restaurant management
   - Menu management
   - Order management
+  - Analytics and reports
 
 ## 🎨 Design System
 
 - **Colors**
-  - Primary: Red (#DC2626)
-  - Secondary: Gray (#4B5563)
-  - Background: Light gray (#F3F4F6)
-  - Text: Dark gray (#1F2937)
+  - Primary: Red (#EF4444)
+  - Secondary: Gray (#6B7280)
+  - Success: Green (#10B981)
+  - Warning: Yellow (#F59E0B)
+  - Error: Red (#DC2626)
 
 - **Typography**
-  - Headings: Inter (Bold)
-  - Body: Inter (Regular)
-
-- **Components**
-  - Cards with shadow and rounded corners
-  - Responsive grid layouts
-  - Consistent button styles
-  - Form inputs with validation
+  - Headings: Inter
+  - Body: Roboto
 
 ## 🤝 Contributing
 
