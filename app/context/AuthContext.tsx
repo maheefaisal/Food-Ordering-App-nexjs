@@ -16,7 +16,7 @@ interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
   isAdmin: boolean;
-  login: (email: string, password: string, rememberMe?: boolean, twoFactorCode?: string) => Promise<void>;
+  login: (email: string, password: string, twoFactorCode?: string) => Promise<void>;
   adminLogin: (email: string, password: string, twoFactorCode?: string) => Promise<void>;
   signup: (name: string, email: string, password: string) => Promise<void>;
   logout: () => void;
@@ -25,9 +25,9 @@ interface AuthContextType {
   verifyEmail: (token: string) => Promise<void>;
   requestPasswordReset: (email: string) => Promise<void>;
   resetPassword: (token: string, newPassword: string) => Promise<void>;
-  enableTwoFactor: (phoneNumber: string) => Promise<void>;
+  enableTwoFactor: () => Promise<void>;
   disableTwoFactor: () => Promise<void>;
-  verifyTwoFactor: (code: string) => Promise<void>;
+  verifyTwoFactor: (code: string) => Promise<boolean>;
   changeAdminPassword: (currentPassword: string, newPassword: string) => Promise<void>;
 }
 
@@ -60,35 +60,56 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     checkSession();
   }, []);
 
-  const login = async (email: string, password: string, rememberMe = false, twoFactorCode?: string) => {
+  const login = async (email: string, password: string, twoFactorCode?: string) => {
     try {
-      // Here you would typically make an API call to your backend
-      const mockUser = {
-        id: '1',
-        name: 'John Doe',
-        email,
-        isEmailVerified: true,
-        twoFactorEnabled: true,
-        phoneNumber: '+1234567890',
-        role: 'user',
-      };
-      
-      if (mockUser.twoFactorEnabled && !twoFactorCode) {
-        setRequiresTwoFactor(true);
-        throw new Error('Two-factor authentication required');
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      // Check for admin credentials
+      if (email === 'admin@example.com' && password === 'Admin@123!') {
+        if (twoFactorCode) {
+          // Verify 2FA code (in real app, this would be validated against a stored code)
+          if (twoFactorCode.length !== 6) {
+            throw new Error('Invalid two-factor code');
+          }
+          
+          const adminUser: User = {
+            id: '1',
+            name: 'Admin User',
+            email: 'admin@example.com',
+            role: 'admin',
+            twoFactorEnabled: true
+          };
+          
+          setUser(adminUser);
+          setIsAuthenticated(true);
+          localStorage.setItem('user', JSON.stringify(adminUser));
+          return;
+        } else {
+          // If no 2FA code provided, require it
+          throw new Error('Two-factor authentication required');
+        }
       }
-      
-      setUser(mockUser);
-      setIsAuthenticated(true);
-      setIsAdmin(false);
-      setRequiresTwoFactor(false);
-      
-      if (rememberMe) {
-        localStorage.setItem('user', JSON.stringify(mockUser));
-        localStorage.setItem('rememberMe', 'true');
+
+      // For regular users (simplified for demo)
+      if (email && password) {
+        const regularUser: User = {
+          id: '2',
+          name: 'Regular User',
+          email: email,
+          role: 'user',
+          twoFactorEnabled: false
+        };
+        
+        setUser(regularUser);
+        setIsAuthenticated(true);
+        localStorage.setItem('user', JSON.stringify(regularUser));
+        return;
       }
+
+      throw new Error('Invalid credentials');
     } catch (error) {
-      console.error('Login failed:', error);
+      console.error('Login error:', error);
       throw error;
     }
   };
@@ -113,6 +134,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (mockAdmin.twoFactorEnabled && !twoFactorCode) {
         setRequiresTwoFactor(true);
         throw new Error('Two-factor authentication required');
+      }
+
+      // For demo purposes, we'll accept any 6-digit code
+      if (twoFactorCode && twoFactorCode.length !== 6) {
+        throw new Error('Invalid two-factor code');
       }
 
       setUser(mockAdmin);
@@ -238,30 +264,47 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const requestPasswordReset = async (email: string) => {
     try {
-      // Here you would typically make an API call to send reset email
-      console.log('Password reset email sent to:', email);
+      // In a real application, you would:
+      // 1. Check if the email exists in your database
+      // 2. Generate a secure reset token
+      // 3. Store the token with an expiration time
+      // 4. Send an email with the reset link
+      
+      // For demo purposes, we'll simulate this process
+      console.log(`Password reset requested for email: ${email}`);
+      console.log('Reset token would be sent to email in a real application');
+      
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
     } catch (error) {
-      console.error('Failed to send password reset email:', error);
-      throw new Error('Failed to send password reset email. Please try again.');
+      throw new Error('Failed to request password reset');
     }
   };
 
   const resetPassword = async (token: string, newPassword: string) => {
     try {
-      // Here you would typically make an API call to reset password
-      console.log('Password reset successful');
+      // In a real application, you would:
+      // 1. Verify the token is valid and not expired
+      // 2. Update the user's password in the database
+      // 3. Invalidate the reset token
+      
+      // For demo purposes, we'll simulate this process
+      console.log(`Password reset with token: ${token}`);
+      console.log('Password would be updated in the database in a real application');
+      
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
     } catch (error) {
-      console.error('Password reset failed:', error);
-      throw new Error('Password reset failed. Please try again.');
+      throw new Error('Failed to reset password');
     }
   };
 
-  const enableTwoFactor = async (phoneNumber: string) => {
+  const enableTwoFactor = async () => {
     try {
       if (!user) throw new Error('No user logged in');
       
       // Here you would typically make an API call to enable 2FA
-      const updatedUser = { ...user, twoFactorEnabled: true, phoneNumber };
+      const updatedUser = { ...user, twoFactorEnabled: true };
       setUser(updatedUser);
       
       const storedUser = localStorage.getItem('user');
@@ -299,6 +342,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       // Here you would typically make an API call to verify 2FA code
       console.log('Two-factor authentication verified');
       setRequiresTwoFactor(false);
+      return true;
     } catch (error) {
       console.error('Two-factor authentication failed:', error);
       throw new Error('Invalid verification code. Please try again.');

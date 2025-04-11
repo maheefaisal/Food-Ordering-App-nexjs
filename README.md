@@ -1,223 +1,166 @@
-# 🍽️ Food Ordering App
+# Food Ordering App
 
-A modern, responsive food ordering application built with Next.js, TypeScript, and Tailwind CSS. This application allows users to browse restaurants, view menus, add items to cart, and place orders with multiple delivery addresses.
+A modern food ordering application built with Next.js, featuring a user-friendly interface, secure authentication, and comprehensive admin dashboard.
 
-## ✨ Features
+## Features
 
 ### User Features
-- **Restaurant Browsing**
-  - View restaurant details and menus
-  - Search and filter restaurants
-  - Responsive grid layout
-
-- **Menu Management**
-  - Browse menu categories
-  - View dish details with images
-  - Add items to cart with quantity selection
-
-- **Shopping Cart**
-  - Real-time cart updates
-  - Quantity modification
-  - Item removal
-  - Total price calculation
-
-- **Checkout System**
-  - Multiple saved delivery addresses
-  - Form validation
-  - Order summary
-  - Payment processing (Stripe integration)
-
-- **Order Management**
-  - Order history tracking
-  - Order status updates
-  - Reorder functionality
-  - Order confirmation emails
-
-- **User Profile**
-  - Personal information management
-  - Address management
-  - Order history access
+- 🍔 Browse restaurants and menus
+- 🛒 Add items to cart
+- 💳 Secure checkout process
+- 📱 Responsive design for all devices
+- 🔐 Secure authentication with 2FA
+- 📍 Multiple delivery addresses
+- 📦 Order tracking
+- 📝 Order history
+- 👤 User profile management
 
 ### Admin Features
-- **Admin Dashboard**
-  - Secure authentication system
-  - Intuitive navigation interface
-  - Quick access to all management features
-  - Responsive design for all screen sizes
+- 🔐 Secure admin authentication with 2FA
+- 📊 Dashboard with key metrics
+- 🏪 Restaurant management
+- 📝 Menu management
+- 📦 Order management
+- 👥 User management
+- 📈 Analytics and reporting
+- 🔍 Activity monitoring
+- ⚙️ System settings
 
-- **Analytics & Reports**
-  - Sales data visualization
-    - Daily/weekly/monthly sales trends
-    - Total revenue tracking
-    - Sales growth metrics
-  - Popular dishes analysis
-    - Top-selling items
-    - Revenue per dish
-    - Order frequency
-  - Customer feedback management
-    - Rating system
-    - Customer comments
-    - Feedback trends
-  - Performance metrics
-    - Total orders
-    - Average ratings
-    - Customer satisfaction
+## Tech Stack
 
-- **Restaurant Management**
-  - Add, edit, and delete restaurants
-  - Menu management for each restaurant
-  - Category organization
-  - Price and availability control
+- **Framework**: Next.js 14
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **State Management**: React Context
+- **Icons**: Lucide React
+- **Authentication**: Custom implementation with 2FA
+- **Database**: Local Storage (for demo)
 
-- **Order Management**
-  - View all orders
-  - Update order status
-  - Search and filter orders
-  - Detailed order information
+## Getting Started
 
-- **User Management**
-  - View user profiles
-  - Manage user permissions
-  - Track user activity
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/food-ordering-app.git
+   cd food-ordering-app
+   ```
 
-## 🛠️ Tech Stack
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-- **Frontend**
-  - Next.js 14
-  - React
-  - TypeScript
-  - Tailwind CSS
-  - Lucide Icons
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
 
-- **State Management**
-  - React Context API
-  - Custom hooks
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-- **Authentication**
-  - Custom auth system
-  - Protected routes
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js 18.0 or later
-- npm or yarn
-
-### Installation
-
-1. Clone the repository
-```bash
-git clone https://github.com/yourusername/food-ordering-app.git
-cd food-ordering-app
-```
-
-2. Install dependencies
-```bash
-npm install
-# or
-yarn install
-```
-
-3. Create a `.env.local` file in the root directory and add your environment variables:
-```env
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
-STRIPE_SECRET_KEY=your_stripe_secret_key
-```
-
-4. Run the development server
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-5. Open [http://localhost:3000](http://localhost:3000) in your browser
-
-### Admin Access
-1. Navigate to `/admin/login`
-2. Use the following credentials:
-   - Username: `admin`
-   - Password: `admin123`
-
-## 📁 Project Structure
+## Project Structure
 
 ```
-food-ordering-app/
-├── app/
-│   ├── admin/              # Admin dashboard
-│   │   ├── analytics/      # Analytics and reports
-│   │   ├── restaurants/    # Restaurant management
-│   │   ├── orders/         # Order management
-│   │   ├── users/          # User management
-│   │   └── login/          # Admin login
-│   ├── addresses/          # Address management page
-│   ├── cart/              # Shopping cart page
-│   ├── checkout/          # Checkout process
-│   ├── components/        # Reusable components
-│   ├── context/           # React Context providers
-│   ├── menu/              # Restaurant menu page
-│   ├── order-success/     # Order confirmation page
-│   ├── orders/            # Order history page
-│   ├── profile/           # User profile page
-│   └── restaurants/       # Restaurant listing page
-├── public/                # Static assets
-└── styles/                # Global styles
+app/
+├── admin/                 # Admin dashboard
+│   ├── layout.tsx        # Admin layout with navigation
+│   ├── page.tsx          # Admin dashboard home
+│   ├── login/            # Admin login page
+│   ├── restaurants/      # Restaurant management
+│   ├── orders/           # Order management
+│   ├── users/            # User management
+│   ├── activity/         # Activity monitoring
+│   └── settings/         # System settings
+├── auth/                 # Authentication pages
+│   ├── login/           # User login
+│   ├── signup/          # User registration
+│   └── forgot-password/ # Password recovery
+├── cart/                # Shopping cart
+├── checkout/            # Checkout process
+├── context/             # React contexts
+│   ├── AuthContext.tsx  # Authentication
+│   ├── CartContext.tsx  # Shopping cart
+│   ├── OrderContext.tsx # Orders
+│   └── AddressContext.tsx # Delivery addresses
+├── profile/             # User profile
+├── orders/              # Order history
+└── order-success/       # Order confirmation
 ```
 
-## 🔧 Key Components
+## Authentication
 
-- **Context Providers**
-  - `CartContext`: Manages shopping cart state
-  - `OrderContext`: Handles order tracking
-  - `AddressContext`: Manages delivery addresses
-  - `AuthContext`: Handles admin authentication
+### User Authentication
+- Email/password login
+- Social login (Google, Facebook, Twitter, GitHub)
+- Two-factor authentication
+- Password reset functionality
+- Email verification
 
-- **Pages**
-  - Restaurant listing and details
-  - Menu browsing
-  - Shopping cart
-  - Checkout process
-  - Order confirmation
-  - Order history
-  - User profile
-  - Address management
-  - Admin dashboard
-  - Restaurant management
-  - Menu management
-  - Order management
-  - Analytics and reports
+### Admin Authentication
+- Secure admin login
+- Two-factor authentication required
+- Session management
+- Role-based access control
 
-## 🎨 Design System
+### Default Admin Credentials
+- Email: admin@example.com
+- Password: Admin@123!
+- 2FA Code: Any 6-digit number (for demo)
 
-- **Colors**
-  - Primary: Red (#EF4444)
-  - Secondary: Gray (#6B7280)
-  - Success: Green (#10B981)
-  - Warning: Yellow (#F59E0B)
-  - Error: Red (#DC2626)
+## Key Components
 
-- **Typography**
-  - Headings: Inter
-  - Body: Roboto
+### Context Providers
+- `AuthContext`: Handles authentication state and methods
+- `CartContext`: Manages shopping cart state
+- `OrderContext`: Handles order management
+- `AddressContext`: Manages delivery addresses
 
-## 🤝 Contributing
+### Pages
+- `Home`: Restaurant listings and search
+- `Restaurant`: Menu and ordering
+- `Cart`: Shopping cart management
+- `Checkout`: Order processing
+- `Profile`: User information
+- `Orders`: Order history
+- `Admin`: Dashboard and management
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+## Design System
+
+### Colors
+- Primary: Blue (#3B82F6)
+- Secondary: Red (#EF4444)
+- Success: Green (#10B981)
+- Warning: Yellow (#F59E0B)
+- Error: Red (#EF4444)
+- Background: Gray (#F3F4F6)
+
+### Typography
+- Headings: Inter
+- Body: System fonts
+- Font sizes: Tailwind defaults
+
+### Components
+- Buttons: Primary, Secondary, Outline
+- Cards: Restaurant, Menu Item, Order
+- Forms: Input, Select, Checkbox
+- Navigation: Header, Footer, Sidebar
+
+## Contributing
 
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📝 License
+## Security
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+- All passwords are hashed
+- Two-factor authentication for admin access
+- Secure session management
+- Protected API routes
+- Input validation and sanitization
+- XSS protection
+- CSRF protection
 
-## 🙏 Acknowledgments
+## License
 
-- [Next.js](https://nextjs.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Stripe](https://stripe.com/)
-- [Lucide Icons](https://lucide.dev/) 
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. 
